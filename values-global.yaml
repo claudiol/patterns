@@ -1,0 +1,21 @@
+global:
+  valuesDirectoryURL: https://github.com/beekhof/patterns/raw/main/
+  options:
+    useCSV: True
+    syncPolicy: Automatic
+    installPlanApproval: Automatic
+
+  git:
+    provider: github.com
+    account: beekhof
+    username: beekhof
+    email: abeekhof@redhat.com
+    dev_revision: main
+
+  quay:
+    provider: quay.io
+    account: abeekhof
+
+  datacenter:
+    domain: blueprints.rhecoeng.com
+    cluster: beekhof-gitops

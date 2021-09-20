@@ -1,0 +1,182 @@
+site:
+  name: datacenter
+
+  proposedOptions:
+    manageGitops: True
+    isHubCluster: True
+
+  namespaces:
+  - open-cluster-management
+  - manuela-ml-workspace
+  - manuela-tst-all
+  - manuela-ci
+  - manuela-data-lake-central-s3-store
+  - manuela-data-lake-central-kafka-cluster
+
+  subscriptions:
+  - name: advanced-cluster-management
+    namespace: open-cluster-management
+    channel: release-2.3
+    csv: advanced-cluster-management.v2.3.2
+
+  - name: seldon-operator
+    namespace: manuela-ml-workspace
+    source: community-operators
+    csv: seldon-operator.v1.7.0
+
+  - name: opendatahub-operator
+    source: community-operators
+    csv: opendatahub-operator.v1.1.0
+
+  - name: openshift-pipelines-operator-rh
+    csv: redhat-openshift-pipelines.v1.5.1
+
+  # TODO: Allow namespace to be a list
+  - name: amq-streams
+    namespace: manuela-data-lake-central-kafka-cluster
+    channel: amq-streams-1.7.x
+    csv: amqstreams.v1.7.1
+
+  - name: amq-streams
+    namespace: manuela-tst-all
+    channel: amq-streams-1.7.x
+    csv: amqstreams.v1.7.1
+
+  - name: red-hat-camel-k
+    namespace: manuela-data-lake-central-s3-store
+    channel: 1.4.x
+    csv: red-hat-camel-k-operator.v1.4.0
+
+  - name: red-hat-camel-k
+    namespace: manuela-tst-all
+    channel: 1.4.x
+    csv: red-hat-camel-k-operator.v1.4.0
+
+  projects:
+  - datacenter
+  - datalake
+ 
+  applications:
+  - name: acm
+    namespace: open-cluster-management
+    project: datacenter
+    path: common/acm
+    ignoreDifferences:
+    - group: internal.open-cluster-management.io
+      kind: ManagedClusterInfo
+      jsonPointers:
+      - /spec/loggingCA
+
+  - name: odh
+    namespace: default
+    project: datacenter
+    path: charts/datacenter/opendatahub
+    kustomize: True
+
+  - name: pipelines
+    namespace: manuela-ci
+    project: datacenter
+    path: charts/datacenter/pipelines
+
+  - name: central-kafka
+    namespace: manuela-data-lake-central-kafka-cluster
+    project: datalake
+    path: charts/datacenter/kafka
+    kustomize: True
+    ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+      - /spec/replicas
+    - group: route.openshift.io
+      kind: Route
+      jsonPointers:
+      - /status
+    - group: image.openshift.io
+      kind: ImageStream
+      jsonPointers:
+      - /spec/tags
+    - group: apps.openshift.io
+      kind: DeploymentConfig
+      jsonPointers:
+      - /spec/template/spec/containers/0/image
+
+  - name: central-s3
+    namespace: manuela-data-lake-central-s3-store
+    project: datalake
+    path: charts/datacenter/central-s3-store
+    kustomize: True
+    ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+      - /spec/replicas
+    - group: route.openshift.io
+      kind: Route
+      jsonPointers:
+      - /status
+    - group: image.openshift.io
+      kind: ImageStream
+      jsonPointers:
+      - /spec/tags
+    - group: apps.openshift.io
+      kind: DeploymentConfig
+      jsonPointers:
+      - /spec/template/spec/containers/0/image
+
+  - name: manuela-test
+    namespace: manuela-tst-all
+    project: datacenter
+    path: charts/datacenter/manuela-tst
+    plugin:
+      name: helm-with-kustomize
+
+#
+#  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
+#
+#  - name: pipelines
+#    namespace: production
+#    project: datacenter
+#    path: applications/pipeline
+#    repoURL: https://github.com/you/applications.git
+#    targetRevision: stable
+#    overrides:
+#    - name: myparam
+#      value: myparam 
+#  
+#  - name: pipelines
+#    namespace: staging
+#    project: datacenter
+#    path: applications/pipeline
+#    repoURL: https://github.com/you/applications.git
+#    targetRevision: main
+#  
+#   Additional applications
+#   Be sure to include additional resources your apps will require
+#   +X machines
+#   +Y RAM
+#   +Z CPU
+#  - name: vendor-app
+#    namespace: default
+#    project: vendor
+#    path: path/to/myapp
+#    repoURL: https://github.com/vendor/applications.git
+#    targetRevision: main
+
+  managedSites:
+  - name: factory
+    # repoURL: https://github.com/dagger-refuse-cool/manuela-factory.git
+    targetRevision: main
+    helmOverrides:
+    # Values must be strings!
+    - name: site.isHubCluster
+      value: "false"
+    clusterSelector:
+#      matchLabels:
+#        site: factory
+      matchExpressions:
+      - key: vendor
+        operator: In
+        values:
+          - OpenShift
+

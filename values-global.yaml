@@ -7,15 +7,15 @@ global:
 
   git:
     provider: github.com
-    account: beekhof
-    username: beekhof
-    email: abeekhof@redhat.com
+    account: claudiol
+    username: claudiol
+    email: claudiol@redhat.com
     dev_revision: main
 
   quay:
     provider: quay.io
-    account: abeekhof
+    account: claudiol
 
   datacenter:
     domain: blueprints.rhecoeng.com
-    cluster: beekhof-gitops
+    cluster: claudiol-dc

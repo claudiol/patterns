@@ -1,0 +1,82 @@
+site:
+  name: factory
+
+  namespaces:
+  - manuela-data-lake-central-kafka-cluster
+  - manuela-data-lake-central-s3-store
+  - manuela-data-lake-factory-mirror-maker
+  - manuela-stormshift-line-dashboard
+  - manuela-stormshift-machine-sensor
+  - manuela-stormshift-messaging
+  - manuela-ml-workspace
+ 
+  subscriptions:
+  - name: opendatahub-operator
+    source: community-operators
+    csv: opendatahub-operator.v1.1.0
+
+  - name: seldon-operator
+    namespace: manuela-stormshift-messaging
+    source: community-operators
+    csv: seldon-operator.v1.7.0
+
+  - name: amq-streams
+    namespace: manuela-stormshift-messaging
+    channel: amq-streams-1.7.x
+    csv: amqstreams.v1.7.1
+
+  - name: amq-broker
+    namespace: manuela-stormshift-messaging
+    channel: 7.8.x
+    csv: amq-broker-operator.v7.8.1-opr-3
+
+  - name: red-hat-camel-k
+    namespace: manuela-stormshift-messaging
+    channel: 1.4.x
+    csv: red-hat-camel-k-operator.v1.4.0
+
+  projects:
+  - factory
+
+  applications:
+  - name: datalake
+    project: factory
+    path: charts/factory/manuela-data-lake
+
+  - name: stormshift
+    project: factory
+    path: charts/factory/manuela-stormshift
+    plugin:
+      name: helm-with-kustomize
+
+#
+#  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
+#
+#  - name: pipelines
+#    namespace: production
+#    project: datacenter
+#    path: applications/pipeline
+#    repoURL: https://github.com/you/applications.git
+#    targetRevision: stable
+#    overrides:
+#    - name: myparam
+#      value: myparam 
+#  
+#  - name: pipelines
+#    namespace: staging
+#    project: datacenter
+#    path: applications/pipeline
+#    repoURL: https://github.com/you/applications.git
+#    targetRevision: main
+#  
+#   Additional applications
+#   Be sure to include additional resources your apps will require
+#   +X machines
+#   +Y RAM
+#   +Z CPU
+#  - name: vendor-app
+#    namespace: default
+#    project: vendor
+#    path: path/to/myapp
+#    repoURL: https://github.com/vendor/applications.git
+#    targetRevision: main

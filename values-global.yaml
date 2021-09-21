@@ -18,5 +18,5 @@ global:
     account: claudiol
 
   datacenter:
+    clustername: claudiol-dc
     domain: blueprints.rhecoeng.com
-    cluster: "claudiol-dc"

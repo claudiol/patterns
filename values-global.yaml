@@ -1,5 +1,5 @@
 global:
-  valuesDirectoryURL: https://github.com/beekhof/patterns/raw/main/
+  valuesDirectoryURL: "https://github.com/beekhof/patterns/raw/main/"
   options:
     useCSV: True
     syncPolicy: Automatic
@@ -10,6 +10,7 @@ global:
     account: claudiol
     username: claudiol
     email: claudiol@redhat.com
+    target: main
     dev_revision: main
 
   quay:
@@ -18,4 +19,4 @@ global:
 
   datacenter:
     domain: blueprints.rhecoeng.com
-    cluster: claudiol-dc
+    cluster: "claudiol-dc"

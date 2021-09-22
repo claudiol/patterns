@@ -11,7 +11,7 @@ global:
     username: claudiol
     email: claudiol@redhat.com
     target: main
-    dev_revision: main
+    dev_revision: master
 
   quay:
     provider: quay.io

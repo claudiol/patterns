@@ -10,6 +10,9 @@ site:
   - manuela-stormshift-messaging
   - manuela-ml-workspace
  
+  operatorgroupExcludes:
+  - manuela-ml-workspace
+
   subscriptions:
   - name: opendatahub-operator
     source: community-operators

@@ -1,7 +1,7 @@
 global:
   valuesDirectoryURL: "https://github.com/beekhof/patterns/raw/main/"
   options:
-    useCSV: True
+    useCSV: False
     syncPolicy: Automatic
     installPlanApproval: Automatic
 
@@ -10,7 +10,7 @@ global:
     account: claudiol
     username: claudiol
     email: claudiol@redhat.com
-    target: main
+    targetRevision: claudiol-
     dev_revision: master
 
   quay:

@@ -1,5 +1,5 @@
 global:
-  valuesDirectoryURL: "https://github.com/beekhof/patterns/raw/main/"
+  valuesDirectoryURL: "https://github.com/claudiol/patterns/raw/main/"
   options:
     useCSV: False
     syncPolicy: Automatic
@@ -10,7 +10,6 @@ global:
     account: claudiol
     username: claudiol
     email: claudiol@redhat.com
-    targetRevision: claudiol-
     dev_revision: main
 
   quay:

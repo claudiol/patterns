@@ -12,6 +12,7 @@ global:
     email: claudiol@redhat.com
     dev_revision: main
       #ops_revision: main
+    targetRevision: main
 
   quay:
     provider: quay.io

@@ -18,5 +18,5 @@ global:
     account: claudiol
 
   datacenter:
-    clustername: claudiol-dc
-    domain: blueprints.rhecoeng.com
+    clustername: cluster-89ef
+    domain: 89ef.sandbox1444.opentlc.com

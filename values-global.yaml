@@ -11,7 +11,6 @@ global:
     username: claudiol
     email: claudiol@redhat.com
     dev_revision: main
-    ops_revision: main
 
   pattern: industrial-edge
 
@@ -20,5 +19,5 @@ global:
     account: claudiol
 
   datacenter:
-    clustername: cluster-5ec6
-    domain: 5ec6.sandbox1842.opentlc.com
+    clustername: claudiol-dc
+    domain: blueprints.rhecoeng.com

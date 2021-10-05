@@ -52,6 +52,10 @@ site:
     plugin:
       name: helm-with-kustomize
 
+  - name: odh
+    namespace: manuela-factory-ml-workspace
+    project: factory
+    path: charts/datacenter/opendatahub
 #
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
 #
